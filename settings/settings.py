@@ -3,6 +3,9 @@
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+import os
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.abspath(__file__),'../..'))
+
 ADMINS = (
     ('Your Name', 'your_email@example.com'),
 )
@@ -109,7 +112,6 @@ WSGI_APPLICATION = 'wsgi.application'
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
 )
 
 INSTALLED_APPS = (
@@ -123,6 +125,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'main',
 )
 
 # A sample logging configuration. The only tangible logging
