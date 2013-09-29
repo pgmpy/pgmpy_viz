@@ -1,2 +1,2 @@
-PgmPy_viz
+pgmpy_viz
 =========
