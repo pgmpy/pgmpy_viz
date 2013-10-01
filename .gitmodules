@@ -1,0 +1,3 @@
+[submodule "pgmpy"]
+	path = pgmpy
+	url = git@github.com:pgmpy/pgmpy.git
