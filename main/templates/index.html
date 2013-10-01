@@ -12,13 +12,27 @@
 <div id="cy"></div>
 <body>
 
-<p> This is a test text </p>
-
 <script>
+
+function getMousePos(canvas, event){
+  var mouseX = event.pageX - canvas.offsetLeft;
+  var mouseY = event.pageY - canvas.offsetTop;
+  return {
+    x: mouseX,
+    y: mouseY 
+  };
+}
+
+
 $('#cy').cytoscape({
   layout: {
     name: 'circle'
   },
+
+  showOverlay: false,
+
+  minZoom: 0.1,
+  maxZoom: 10,
   
   style: cytoscape.stylesheet()
     .selector('node')
@@ -59,10 +73,10 @@ $('#cy').cytoscape({
   
   elements: {
     nodes: [
-      { data: { id: 'j', name: 'Jerry', weight: 65, faveColor: '#6FB1FC', faveShape: 'triangle' } },
-      { data: { id: 'e', name: 'Elaine', weight: 45, faveColor: '#EDA1ED', faveShape: 'ellipse' } },
-      { data: { id: 'k', name: 'Kramer', weight: 75, faveColor: '#86B342', faveShape: 'octagon' } },
-      { data: { id: 'g', name: 'George', weight: 70, faveColor: '#F5A45D', faveShape: 'rectangle' } }
+      { data: { id: 'j', name: 'Pranjal', weight: 65, faveColor: '#6FB1FC', faveShape: 'triangle' } },
+      { data: { id: 'e', name: 'Mittal', weight: 45, faveColor: '#EDA1ED', faveShape: 'ellipse' } },
+      { data: { id: 'k', name: 'Test', weight: 75, faveColor: '#86B342', faveShape: 'octagon' } },
+      { data: { id: 'g', name: 'Graph', weight: 70, faveColor: '#F5A45D', faveShape: 'rectangle' } }
     ],
     edges: [
       { data: { source: 'j', target: 'e', faveColor: '#6FB1FC', strength: 90 } },
@@ -85,6 +99,19 @@ $('#cy').cytoscape({
     
     // giddy up
   }
+});
+
+
+NODE_ID = 1
+$("#cy").click(function(event){
+
+    pos = getMousePos(this,event)
+    NODE_ID += 1
+    node_id_str = NODE_ID.toString()
+
+    cy.add([
+      { group: "nodes", data: { id: node_id_str }, position: pos },
+    ]);
 });
 
 
