@@ -10,31 +10,30 @@ Installation
 ------------
 It is optional but suggest to start and activate a virtualenv before the steps ahead.
 
-    Change directory into the application
+Change directory into the application
 
         $ cd pgmpy_viz
 
 
-    Initialize submodule(s)
+Initialize submodule(s)
 
         $ ./update
 
-    Install dependencies
+Install dependencies
 
         $ pip install -r requirements.txt
 
-    Run a local development server (on port 8000 by default)
+Run a local development server (on port 8000 by default)
 
         $ python manage.py runserver
 
-    Now visit the following url in your browser:
+Now visit the following url in your browser:
 
         http://localhost:8000/
 
 You will see a sample graph. Click on anywhere in the graph, a small node is created.
 
-NOTE
+Note
 ----
-The package is currently incomplete and unstable and is yet to hit its first release. 
-Kindly use with caution.
+The package is currently incomplete and unstable. Kindly use with caution.
 
