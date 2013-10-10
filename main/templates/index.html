@@ -110,7 +110,7 @@ $("#cy").click(function(event){
     node_id_str = NODE_ID.toString()
 
     cy.add([
-      { group: "nodes", data: { id: node_id_str }, position: pos },
+      { group: "nodes", data: { id: node_id_str }, renderedPosition: pos },
     ]);
 });
 
