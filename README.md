@@ -8,7 +8,7 @@ These graphs will be mapped to pgmpy models internally.
 
 Installation
 ------------
-It is optional but suggest to start and activate a virtualenv before the steps ahead.
+It is optional but suggested to start and activate a virtualenv before the steps ahead.
 
 Change directory into the application
 
@@ -31,7 +31,8 @@ Now visit the following url in your browser:
 
         http://localhost:8000/
 
-You will see a sample graph. Click on anywhere in the graph, a small node is created.
+You will see a sample graph. Click on the "Toggle Create Node" to start adding nodes to the graph.
+Click on it again to stop creating nodes.
 
 Note
 ----
