@@ -8,4 +8,9 @@ body {
   position: absolute;
   left: 0;
   top: 5%;
+  z-index: -3;
+}
+
+#create-node-toggle {
+  z-index: -2;
 }
