@@ -46,8 +46,8 @@ $('#cy').cytoscape({
     .selector('node')
       .css({
         'shape': 'data(shape)',
-        'height': 'mapData(weight, 40, 80, 10, 30)',
-        'width': 'mapData(weight, 40, 80, 10, 30)',
+        'height': 'mapData(weight, 0, 100, 20, 70)',
+        'width': 'mapData(weight, 0, 100, 20, 70)',
         'content': 'data(name)',
         'text-valign': 'center',
         'text-outline-width': 2,
@@ -57,14 +57,14 @@ $('#cy').cytoscape({
       })
     .selector(':selected')
       .css({
-        'border-width': 3,
-        'border-color': '#333'
+        'border-width': 5,
+        'border-color': '#000000',
       })
     .selector('edge')
       .css({
         'width': 'mapData(strength, 70, 100, 2, 6)',
         'target-arrow-shape': 'triangle',
-        'source-arrow-shape': 'circle',
+        'source-arrow-shape': 'none',
         'line-color': 'data(color)',
         'source-arrow-color': 'data(color)',
         'target-arrow-color': 'data(color)',
@@ -97,6 +97,8 @@ $('#cy').cytoscape({
 
 NODE_ID = 1
 EDGE_ID = 1
+source_node_id = null;
+target_node_id = null;
 
 CREATE_NODE_STATE = false
 CREATE_EDGE_STATE = false
@@ -130,6 +132,12 @@ function toggleAddEdgeState()
         addedgesbtn_obj.text("Stop Adding Edges")
         addedgesbtn_obj.removeClass("btn-success")
         addedgesbtn_obj.addClass("btn-danger")
+
+        // Unselect all selected elements to avoid bugs.
+        cy.$(":selected").unselect()
+        source_node_id = null;
+        target_node_id = null;
+
     }
 }
 
@@ -156,9 +164,6 @@ $("#create-edge-toggle").click(function(event){
    - Select from node, Select to node.
    - An edge is created between these nodes.
 **********************************************************/
-source_node_id = null;
-target_node_id = null;
-
 $("#cy").click(function(event){
     if (CREATE_NODE_STATE == true) {
 
@@ -166,7 +171,7 @@ $("#cy").click(function(event){
         node_id_str = "n" + NODE_ID.toString()
 
         cy.add([
-          { group: "nodes", data: { id: node_id_str }, renderedPosition: pos },
+          { group: "nodes", data: { id: node_id_str , weight: 70 }, renderedPosition: pos },
         ]);
 
         // Next node should be assigned a different id.
