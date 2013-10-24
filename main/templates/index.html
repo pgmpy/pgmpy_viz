@@ -11,10 +11,10 @@
 <title>Probablistic Graphical Models</title>
   <script src="{{ STATIC_URL }}js/cytoscape-lib/cytoscape.min.js"></script>
 </head>
-<button type="button" id="create-node-toggle" class="btn btn-sm btn-primary" data-toggle="collapse">
-Toggle Create Node
-</button>
 <div id="cy"></div>
+<button type="button" id="create-node-toggle" class="btn btn-sm btn-primary btn-success" data-toggle="collapse">
+Start Adding Nodes
+</button>
 <body>
 
 <script>
@@ -112,15 +112,24 @@ NODE_ID = 1
 CREATE_NODE_STATE = false
 
 $("#create-node-toggle").click(function(event){
-    console.log("hello");
     if (CREATE_NODE_STATE == true){
         CREATE_NODE_STATE = false
+        $(this).text("Start Adding Nodes")
+        $(this).removeClass("btn-danger")
+        $(this).addClass("btn-success")
     } else {
         CREATE_NODE_STATE = true
+        $(this).text("Stop Adding Nodes")
+        $(this).removeClass("btn-success")
+        $(this).addClass("btn-danger")
     }
 
 });
 
+/**********************************************************
+   Adding a Node:
+   We add a node on a click only when in Create Node State.
+**********************************************************/
 $("#cy").click(function(event){
     if (CREATE_NODE_STATE == true) {
 
@@ -134,6 +143,23 @@ $("#cy").click(function(event){
     }
 });
 
+
+/**********************************************************
+   Adding an Edge: Select from node, Select to node.
+   An edge is created between these nodes.
+**********************************************************/
+$("#cy").click(function(event){
+    if (CREATE_NODE_STATE == true) {
+
+        pos = getMousePos(this,event)
+        NODE_ID += 1
+        node_id_str = NODE_ID.toString()
+
+        cy.add([
+          { group: "nodes", data: { id: node_id_str }, renderedPosition: pos },
+        ]);
+    }
+});
 
 
 </script>
