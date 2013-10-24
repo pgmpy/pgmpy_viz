@@ -175,6 +175,7 @@ $("#cy").click(function(event){
     if (CREATE_EDGE_STATE == true) {
         selected_elements = cy.elements(":selected")
         if (selected_elements.length == 0){
+            source_node_id = null;
             return
         }
 
@@ -182,7 +183,7 @@ $("#cy").click(function(event){
             // Get the ID of the node that was clicked.
             source_node_id = selected_elements.eq(0).id()
 
-            // Return to make sure nothing else happens after source node is selected.s
+            // Return to make sure nothing else happens after source node is selected.
             return
         }
 
