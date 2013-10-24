@@ -46,7 +46,8 @@ $('#cy').cytoscape({
     .selector('node')
       .css({
         'shape': 'data(shape)',
-        'width': 'mapData(weight, 40, 80, 20, 60)',
+        'height': 'mapData(weight, 40, 80, 10, 30)',
+        'width': 'mapData(weight, 40, 80, 10, 30)',
         'content': 'data(name)',
         'text-valign': 'center',
         'text-outline-width': 2,
@@ -203,6 +204,8 @@ $("#cy").click(function(event){
               { group: "edges", data: { source: source_node_id, target: target_node_id , color: '#86B342', strength: 100 },}
             ]);
 
+            // Unselect all selected nodes, edges after creating an edge.
+            cy.$(":selected").unselect()
 
             EDGE_ID += 1
 
@@ -214,6 +217,15 @@ $("#cy").click(function(event){
 });
 
 
+$(document).keydown(function(e){
+    //console.log(e.keyCode)
+
+    // If delete key is pressed delete selected elements.
+    if (e.keyCode == 46) {
+        to_be_deleted = cy.$(":selected");
+        cy.remove(to_be_deleted);
+    }
+});
 
 </script>
 
