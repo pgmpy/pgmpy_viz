@@ -3,6 +3,8 @@
 <head>
 <meta name="description" content="pgmviz" />
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/pgmviz.css">
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.min.css">
+
 
 <script src="{{ STATIC_URL }}js/cytoscape-lib/jquery.js"></script>
 <meta charset=utf-8 />
@@ -10,6 +12,12 @@
   <script src="{{ STATIC_URL }}js/cytoscape-lib/cytoscape.min.js"></script>
 </head>
 <div id="cy"></div>
+<button type="button" id="create-node-toggle" class="btn btn-sm btn-primary btn-success" data-toggle="collapse">
+Start Adding Nodes
+</button>
+<button type="button" id="create-edge-toggle" class="btn btn-sm btn-primary btn-success" data-toggle="collapse">
+Start Adding Edges
+</button>
 <body>
 
 <script>
@@ -19,7 +27,7 @@ function getMousePos(canvas, event){
   var mouseY = event.pageY - canvas.offsetTop;
   return {
     x: mouseX,
-    y: mouseY 
+    y: mouseY
   };
 }
 
@@ -33,32 +41,33 @@ $('#cy').cytoscape({
 
   minZoom: 0.1,
   maxZoom: 10,
-  
+
   style: cytoscape.stylesheet()
     .selector('node')
       .css({
-        'shape': 'data(faveShape)',
-        'width': 'mapData(weight, 40, 80, 20, 60)',
+        'shape': 'data(shape)',
+        'height': 'mapData(weight, 0, 100, 20, 70)',
+        'width': 'mapData(weight, 0, 100, 20, 70)',
         'content': 'data(name)',
         'text-valign': 'center',
         'text-outline-width': 2,
-        'text-outline-color': 'data(faveColor)',
-        'background-color': 'data(faveColor)',
+        'text-outline-color': 'data(color)',
+        'background-color': 'data(color)',
         'color': '#fff'
       })
     .selector(':selected')
       .css({
-        'border-width': 3,
-        'border-color': '#333'
+        'border-width': 5,
+        'border-color': '#000000',
       })
     .selector('edge')
       .css({
         'width': 'mapData(strength, 70, 100, 2, 6)',
         'target-arrow-shape': 'triangle',
-        'source-arrow-shape': 'circle',
-        'line-color': 'data(faveColor)',
-        'source-arrow-color': 'data(faveColor)',
-        'target-arrow-color': 'data(faveColor)'
+        'source-arrow-shape': 'none',
+        'line-color': 'data(color)',
+        'source-arrow-color': 'data(color)',
+        'target-arrow-color': 'data(color)',
       })
     .selector('edge.questionable')
       .css({
@@ -70,51 +79,158 @@ $('#cy').cytoscape({
         'opacity': 0.25,
         'text-opacity': 0
       }),
-  
+
   elements: {
     nodes: [
-      { data: { id: 'j', name: 'Pranjal', weight: 65, faveColor: '#6FB1FC', faveShape: 'triangle' } },
-      { data: { id: 'e', name: 'Mittal', weight: 45, faveColor: '#EDA1ED', faveShape: 'ellipse' } },
-      { data: { id: 'k', name: 'Test', weight: 75, faveColor: '#86B342', faveShape: 'octagon' } },
-      { data: { id: 'g', name: 'Graph', weight: 70, faveColor: '#F5A45D', faveShape: 'rectangle' } }
+      { data: { id: 'dummy1', name: 'Dummynode1', color: '#ffffff', shape: 'ellipse' } },
+      { data: { id: 'dummy2', name: 'Dummynode2', color: '#ffffff', shape: 'ellipse' } },
     ],
-    edges: [
-      { data: { source: 'j', target: 'e', faveColor: '#6FB1FC', strength: 90 } },
-      { data: { source: 'j', target: 'k', faveColor: '#6FB1FC', strength: 70 } },
-      { data: { source: 'j', target: 'g', faveColor: '#6FB1FC', strength: 80 } },
-     
-      { data: { source: 'e', target: 'j', faveColor: '#EDA1ED', strength: 95 } },
-      { data: { source: 'e', target: 'k', faveColor: '#EDA1ED', strength: 60 }, classes: 'questionable' },
-      
-      { data: { source: 'k', target: 'j', faveColor: '#86B342', strength: 100 } },
-      { data: { source: 'k', target: 'e', faveColor: '#86B342', strength: 100 } },
-      { data: { source: 'k', target: 'g', faveColor: '#86B342', strength: 100 } },
-      
-      { data: { source: 'g', target: 'j', faveColor: '#F5A45D', strength: 90 } }
-    ]
   },
-  
+
   ready: function(){
     window.cy = this;
-    
+
     // giddy up
   }
 });
 
 
 NODE_ID = 1
-$("#cy").click(function(event){
+EDGE_ID = 1
+source_node_id = null;
+target_node_id = null;
 
-    pos = getMousePos(this,event)
-    NODE_ID += 1
-    node_id_str = NODE_ID.toString()
+CREATE_NODE_STATE = false
+CREATE_EDGE_STATE = false
 
-    cy.add([
-      { group: "nodes", data: { id: node_id_str }, renderedPosition: pos },
-    ]);
+function toggleAddNodeState()
+{
+    createnodebtn_obj = $("#create-node-toggle")
+    if (CREATE_NODE_STATE == true){
+        CREATE_NODE_STATE = false
+        createnodebtn_obj.text("Start Adding Nodes")
+        createnodebtn_obj.removeClass("btn-danger")
+        createnodebtn_obj.addClass("btn-success")
+    } else {
+        CREATE_NODE_STATE = true
+        createnodebtn_obj.text("Stop Adding Nodes")
+        createnodebtn_obj.removeClass("btn-success")
+        createnodebtn_obj.addClass("btn-danger")
+    }
+}
+
+function toggleAddEdgeState()
+{
+    addedgesbtn_obj = $("#create-edge-toggle")
+    if (CREATE_EDGE_STATE == true){
+        CREATE_EDGE_STATE = false
+        addedgesbtn_obj.text("Start Adding Edges")
+        addedgesbtn_obj.removeClass("btn-danger")
+        addedgesbtn_obj.addClass("btn-success")
+    } else {
+        CREATE_EDGE_STATE = true
+        addedgesbtn_obj.text("Stop Adding Edges")
+        addedgesbtn_obj.removeClass("btn-success")
+        addedgesbtn_obj.addClass("btn-danger")
+
+        // Unselect all selected elements to avoid bugs.
+        cy.$(":selected").unselect()
+        source_node_id = null;
+        target_node_id = null;
+
+    }
+}
+
+
+$("#create-node-toggle").click(function(event){
+   if (CREATE_EDGE_STATE == true){
+        toggleAddEdgeState()
+   }
+   toggleAddNodeState()
+});
+
+$("#create-edge-toggle").click(function(event){
+   if (CREATE_NODE_STATE == true){
+        toggleAddNodeState()
+   }
+   toggleAddEdgeState()
 });
 
 
+/**********************************************************
+   Adding a Node:
+   - We add a node on a click only when in Create Node State.
+   Adding an Edge:
+   - Select from node, Select to node.
+   - An edge is created between these nodes.
+**********************************************************/
+$("#cy").click(function(event){
+    if (CREATE_NODE_STATE == true) {
+
+        pos = getMousePos(this,event)
+        node_id_str = "n" + NODE_ID.toString()
+
+        cy.add([
+          { group: "nodes", data: { id: node_id_str , weight: 70 }, renderedPosition: pos },
+        ]);
+
+        // Next node should be assigned a different id.
+        NODE_ID += 1
+    }
+
+    if (CREATE_EDGE_STATE == true) {
+        selected_elements = cy.elements(":selected")
+        if (selected_elements.length == 0){
+            source_node_id = null;
+            return
+        }
+
+        if (!source_node_id){
+            // Get the ID of the node that was clicked.
+            source_node_id = selected_elements.eq(0).id()
+
+            // Return to make sure nothing else happens after source node is selected.
+            return
+        }
+
+        if (source_node_id && !target_node_id){
+            target_node_id = selected_elements.eq(0).id()
+        }
+
+
+        // Only add an edge if both source and target are selected.
+        if (source_node_id && target_node_id){
+            edge_id_str = "e" + EDGE_ID.toString()
+            // console.log(source_node_id)
+            // console.log(target_node_id)
+            // console.log(edge_id_str)
+
+            cy.add([
+              { group: "edges", data: { source: source_node_id, target: target_node_id , color: '#86B342', strength: 100 },}
+            ]);
+
+            // Unselect all selected nodes, edges after creating an edge.
+            cy.$(":selected").unselect()
+
+            EDGE_ID += 1
+
+            // After creating the edge, set these to null.
+            source_node_id = null;
+            target_node_id = null;
+        }
+    }
+});
+
+
+$(document).keydown(function(e){
+    //console.log(e.keyCode)
+
+    // If delete key is pressed delete selected elements.
+    if (e.keyCode == 46) {
+        to_be_deleted = cy.$(":selected");
+        cy.remove(to_be_deleted);
+    }
+});
 
 </script>
 
