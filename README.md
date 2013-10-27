@@ -58,6 +58,7 @@ You will see a blank canvas with two buttons:
 * 2. "Start Adding Edges"
 
 #### Interacting with pgmpy
+Refer [wiki page](https://github.com/pgmpy/pgmpy_viz/wiki/Detailed-Description) for details 
 
 Use "Start Adding Nodes" (1) to toggle into the "Adding Nodes" Mode. 
 When you click on the "Start Adding Nodes" button and switch into this state, 
