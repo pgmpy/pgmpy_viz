@@ -171,7 +171,7 @@ $("#cy").click(function(event){
         node_id_str = "n" + NODE_ID.toString()
 
         cy.add([
-          { group: "nodes", data: { id: node_id_str , weight: 70 }, renderedPosition: pos },
+          { group: "nodes", data: { id: node_id_str, weight: 70 }, renderedPosition: pos },
         ]);
 
         // Next node should be assigned a different id.
@@ -201,12 +201,9 @@ $("#cy").click(function(event){
         // Only add an edge if both source and target are selected.
         if (source_node_id && target_node_id){
             edge_id_str = "e" + EDGE_ID.toString()
-            // console.log(source_node_id)
-            // console.log(target_node_id)
-            // console.log(edge_id_str)
 
             cy.add([
-              { group: "edges", data: { source: source_node_id, target: target_node_id , color: '#86B342', strength: 100 },}
+              { group: "edges", data: { source: source_node_id, target: target_node_id, color: '#86B342', strength: 100 },}
             ]);
 
             // Unselect all selected nodes, edges after creating an edge.
@@ -214,7 +211,8 @@ $("#cy").click(function(event){
 
             EDGE_ID += 1
 
-            // After creating the edge, set these to null.
+            // Reset the source and target parameters.
+            // So that a user can start drawing an edge again.
             source_node_id = null;
             target_node_id = null;
         }
@@ -223,7 +221,6 @@ $("#cy").click(function(event){
 
 
 $(document).keydown(function(e){
-    //console.log(e.keyCode)
 
     // If delete key is pressed delete selected elements.
     if (e.keyCode == 46) {
