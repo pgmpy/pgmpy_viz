@@ -174,7 +174,6 @@ $("#cy").click(function(event){
           { group: "nodes", data: { id: node_id_str, weight: 70 }, renderedPosition: pos },
         ]);
 
-        // Next node should be assigned a different id.
         NODE_ID += 1
     }
 
@@ -186,10 +185,7 @@ $("#cy").click(function(event){
         }
 
         if (!source_node_id){
-            // Get the ID of the node that was clicked.
             source_node_id = selected_elements.eq(0).id()
-
-            // Return to make sure nothing else happens after source node is selected.
             return
         }
 
@@ -206,7 +202,6 @@ $("#cy").click(function(event){
               { group: "edges", data: { source: source_node_id, target: target_node_id, color: '#86B342', strength: 100 },}
             ]);
 
-            // Unselect all selected nodes, edges after creating an edge.
             cy.$(":selected").unselect()
 
             EDGE_ID += 1
