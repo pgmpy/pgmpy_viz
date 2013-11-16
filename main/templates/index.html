@@ -2,15 +2,38 @@
 <html>
 <head>
 <meta name="description" content="pgmviz" />
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/pgmviz.css">
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="../static/css/pgmviz.css">
+<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css">
 
+<link rel="stylesheet" type="text/css" href="../static/css/modal.css">
+<script src="../static/js/cytoscape-lib/jquery.js"></script>
 
-<script src="{{ STATIC_URL }}js/cytoscape-lib/jquery.js"></script>
 <meta charset=utf-8 />
 <title>Probablistic Graphical Models</title>
-  <script src="{{ STATIC_URL }}js/cytoscape-lib/cytoscape.min.js"></script>
+  <script src="../static/js/cytoscape-lib/cytoscape.min.js"></script>
 </head>
+<div id="table" style="display:none; margin-left:0px;">
+  <button id ="add">ADD</button>
+
+<table cellpadding="0" cellspacing="0" id="tableMain">
+<tr>
+  <td colspan="2">R</td>
+  <td colspan="2">S</td>
+</tr>
+   <tr>
+      <td><p>S1</p></td>
+      <td><p>S2</p></td>
+      <td><p>R1</p></td>
+      <td><p>R2</p></td>
+   </tr>
+   <tr>
+      <td><input type="text" value="test"></td>
+      <td><input type="text" value="test"></td>
+      <td><input type="text" value="test"></td>
+      <td><input type="text" value="test"></td>
+   </tr>
+  </table>
+</div>
 <div id="cy"></div>
 <button type="button" id="create-node-toggle" class="btn btn-sm btn-primary btn-success" data-toggle="collapse">
 Start Adding Nodes
@@ -225,6 +248,7 @@ $(document).keydown(function(e){
 });
 
 </script>
-
+<script src="../static/js/bootstrap.js"></script>
+<script src="../static/js/cpd.js"></script>
 </body>
 </html>
