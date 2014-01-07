@@ -54,23 +54,18 @@ Now visit the following url in your browser:
 
 You will see a blank canvas with two buttons:
 
-* 1. "Start Adding Nodes"
-* 2. "Start Adding Edges"
+1.  "Draw Mode"
+2.  "Analysis Mode"
 
 #### Interacting with pgmpy
 Refer [wiki page](https://github.com/pgmpy/pgmpy_viz/wiki/Detailed-Description) for details 
 
-Use "Start Adding Nodes" (1) to toggle into the "Adding Nodes" Mode. 
-When you click on the "Start Adding Nodes" button and switch into this state, 
-you will be able to add as many nodes as you like. Click on this button again to
- stop adding nodes.
+Use "Draw Mode" (1) to draw the model.
+This mode has the is used to add the model and post it as JSON object.
 
-Use "Start Adding Edges" (2) to toggle into the "Adding Edges" Mode. 
-You select any available node on the screen by clicking on it. 
-The node that is selected first gets marked as the Source Node. Next, with the 
-source node selected you click on another node which you would like to be your 
-target node. As soon as you click the target node, an edge will be created
-from the source to the target node and will be visible on the canvas.
+Use "Analysis Mode" (2) to analyse the graph.
+This mode has the functionality of observing some nodes or specific states of nodes.
+It also shows the CPD after observing certain nodes.
 
 
 Note
