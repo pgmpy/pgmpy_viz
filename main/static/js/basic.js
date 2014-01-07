@@ -56,19 +56,9 @@ function getMousePos(canvas, event) {
   };
 }
 
-/*
-function functions() {
-$("#cy").click(function(event) {
-console.log("Hello");
-    }
-$(document).ready(function(event) {
-    //console.log("bhag");
-    //cy = this;
-});
-*/
-
 $(loadCy=function() {
     options ={
+        showOverlay : false,
         ready:function() {
             cy = this;
         }
@@ -76,33 +66,22 @@ $(loadCy=function() {
     $("#cy").cytoscape(options);
 });
 
-//var node_id = "0";
-/*$("#harry").click(function(event) {
-    console.log("choot");});
-    
-$("#charry").click(function(event) {
-    console.log("bhoot");});
-*/
-/*User will click on #cy, a node will be added with a default name "defaultName". A box will pop up and will show "node i" default name. i is the current arr length+2 of node array. The name entered will be the div id of the node and the entry of array. */
+/*User will click on #cy, a node will be added with a default name "defaultName". A box will pop up and will show "node i" as default name. i is node array length+1 . The name entered will be the div id of the node and the entry of array. */
 
 $("#cy").click(function(event) {
     if (currentState == 10) {
         pos = getMousePos(this, event);
-        var nodeId = "default"
+        var nodeId = "default";
         cy.add([
-            {group: "nodes", data: {id: "default"}, renderedPosition: pos},
+            {group: "nodes", data: {id: nodeId}, renderedPosition: pos},
             ]);
-        nodeId = prompt("node ka naam daal","node " + nodes.length);
-        console.log(nodeId);
+        nodeId = prompt("node ka naam daal","Node " + (1 + nodes.length));
+//TODO: Nodes start from "Node 0" or "Node 1"??
+//TODO: reaplace this shitty promt with a kickass box for entering nodename.
         nodes.push(nodeId);
-        //cy.nodes = "default").attr("id", nodeId);
-        //$("#default").attr("id", nodeId );
+        //write the code to access the nodes by id and change their id to nodeId.         
+        //$("data(id)").attr("id", nodeId );
         console.log(nodes);
         //$("#def").attr("div", nodeId);
-        //nodeId = prompt("Please enter your name","harry");
-        //node_id = (parseInt(node_id)+1).toString();
-        //console.log("node_id " + node_id);
-        //console.log(nodeId);
     }
-    }
-);
+});
