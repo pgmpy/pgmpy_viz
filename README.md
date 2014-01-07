@@ -61,7 +61,7 @@ You will see a blank canvas with two buttons:
 Refer [wiki page](https://github.com/pgmpy/pgmpy_viz/wiki/Detailed-Description) for details 
 
 Use "Draw Mode" (1) to draw the model.
-This mode has the is used to add the model and post it as JSON object.
+This mode is used to add the model and post it as JSON object.
 
 Use "Analysis Mode" (2) to analyse the graph.
 This mode has the functionality of observing some nodes or specific states of nodes.
