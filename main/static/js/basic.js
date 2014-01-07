@@ -66,7 +66,11 @@ $(loadCy=function() {
     $("#cy").cytoscape(options);
 });
 
-/*User will click on #cy, a node will be added with a default name "defaultName". A box will pop up and will show "node i" as default name. i is node array length+1 . The name entered will be the div id of the node and the entry of array. */
+/*
+User will click on #cy, a node will be added with default name "defaultName".
+A box will pop up and will show "node i" as default name. i is node array 
+length+1 . The name entered will be the div id of the node and the entry of array.
+*/
 
 $("#cy").click(function(event) {
     if (currentState == 10) {
