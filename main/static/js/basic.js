@@ -39,7 +39,6 @@ $("#drawMode").click(function(event) {
 });
 
 $("#analysisMode").click(function(event) {
-    //console.log("lund")
     currentState = 20;
     var buttons =
         "<button type='button' id='addNodesMode' onclick='initAddNodesMode();'> loda mera </button> \
@@ -54,7 +53,7 @@ $('#postModel').click(function(event) {
         //postgraph();
     //}
     //else 
-        //chtutiye theek graph bana;
+        //graph is incorrect.
 });
 
 $("#cy").click(function(event) {
@@ -62,14 +61,15 @@ $("#cy").click(function(event) {
         pos = getMousePos(this, event);
         var nodeId = 'node' + String(nodesArray.length);
         cy.add([
-            {group: "nodes", data: {id: nodeId, name: nodeId, weight:50},
+            {group: "nodes", data: {id: nodeId, name: "default"},
             renderedPosition: pos},
             ]);
-        nodeId = prompt("node ka naam daal","Node" + nodesArray.length);
-//TODO: reaplace this shitty promt with a kickass box for entering nodename.
-        nodesArray.push(nodeId);
+        var nodeName = prompt('Enter name of Node', 'node'+nodesArray.length);
+//TODO: reaplace this shitty promt with a kickass box for entering nodename.        
+        cy.elements("node#"+nodeId).data('name', nodeName);
+        nodesArray.push(nodeName);
     }
     else if (currentState == 12) {
-        //edges ka code
+        //Code to add edges
     }
 });
