@@ -59,12 +59,12 @@ $('#postModel').click(function(event) {
 $("#cy").click(function(event) {
     if (currentState == 11) {
         pos = getMousePos(this, event);
+	var nodeName = namePrompt(pos, 'node'+nodesArray.length);
         var nodeId = 'node' + String(nodesArray.length);
         cy.add([
             {group: "nodes", data: {id: nodeId, name: "default"},
             renderedPosition: pos},
             ]);
-        var nodeName = prompt('Enter name of Node', 'node'+nodesArray.length);
 //TODO: reaplace this shitty promt with a kickass box for entering nodename.        
         cy.elements("node#"+nodeId).data('name', nodeName);
         nodesArray.push(nodeName);
