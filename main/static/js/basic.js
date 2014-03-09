@@ -59,60 +59,60 @@ $('#postModel').click(function(event) {
 $("#cy").click(function(event) {
     if (currentState == 11) {
         pos = getMousePos(this, event);
-		var defName = 'node'+cy.nodes().length;
-		$("#nameForm").remove();
-		$("body").append("<form id='nameForm' class = 'well' style = 'height:90px ;width:200px ;position:relative ;'>");
-		$("#nameForm").append("<input id='textField' type='text' class='span3' placeholder=" + defName + ">");
-		$("#nameForm").append("<button id='textSubmit' type='submit' class='btn'>Submit</button>");
-		$("#nameForm").css({left:pos.x,top:pos.y});
-		$("#textSubmit").click(function(event){
-			if($("#textField").val()=="")
-				var nodeName = defName;
-			else
-				var nodeName = $("#textField").val();
-			$("#nameForm").remove();
-			cy.add([
-				{group: "nodes", data: {id: 'node'+cy.nodes().length, name: nodeName},renderedPosition: pos},
-				]); 
-			cy.nodes().unselect();
-			return false;
-		});
-	}
+        var defName = 'node'+cy.nodes().length;
+        $("#nameForm").remove();
+        $("body").append("<form id='nameForm' class = 'well' style = 'height:90px ;width:200px ;position:relative ;'>");
+        $("#nameForm").append("<input id='textField' type='text' class='span3' placeholder=" + defName + ">");
+        $("#nameForm").append("<button id='textSubmit' type='submit' class='btn'>Submit</button>");
+        $("#nameForm").css({left:pos.x,top:pos.y});
+        $("#textSubmit").click(function(event){
+            if($("#textField").val()=="")
+                var nodeName = defName;
+            else
+                var nodeName = $("#textField").val();
+            $("#nameForm").remove();
+            cy.add([
+                {group: "nodes", data: {id: 'node'+cy.nodes().length, name: nodeName},renderedPosition: pos},
+                ]); 
+            cy.nodes().unselect();
+            return false;
+        });
+    }
     else if (currentState == 12) {
-		if(cy.$("node:selected").data() ==null){
-			cy.nodes().unselect();
-		}
-		else{
-			if(edgeSource == null){
-				edgeSource = cy.$("node:selected").data("id");
-			}
-			else if (edgeSource !=null && edgeTarget == null){
-				edgeTarget = cy.$("node:selected").data("id");
-				if(edgeTarget != edgeSource && checkEdge(edgeSource,edgeTarget)){
-					cy.add([
-						{group:"edges", data : {id:'edge'+cy.edges().length, source:edgeSource, target:edgeTarget}},
-					]);
-					cy.style()
-					.selector('edge').css('target-arrow-shape','triangle')
-					.update()
-					}
-				edgeTarget = null;
-				edgeSource = null;
-			}
-		}
-		return false;
+        if(cy.$("node:selected").data() ==null){
+            cy.nodes().unselect();
+        }
+        else{
+            if(edgeSource == null){
+                edgeSource = cy.$("node:selected").data("id");
+            }
+            else if (edgeSource !=null && edgeTarget == null){
+                edgeTarget = cy.$("node:selected").data("id");
+                if(edgeTarget != edgeSource && checkEdge(edgeSource,edgeTarget)){
+                    cy.add([
+                        {group:"edges", data : {id:'edge'+cy.edges().length, source:edgeSource, target:edgeTarget}},
+                    ]);
+                    cy.style()
+                    .selector('edge').css('target-arrow-shape','triangle')
+                    .update()
+                    }
+                edgeTarget = null;
+                edgeSource = null;
+            }
+        }
+        return false;
     }
 });
 
 function checkEdge(sourceId,targetId){
-	var targets = cy.elements('edge[source="'+sourceId+'"]').target();
-	if (targets==null)
-		var n = 0;
-	else
-		var n = targets.length;
-	for(var i=0;i<n;i++){
-		if (targetId==targets[i].data("id"))
-			return false;
-	}
-	return true;
+    var targets = cy.elements('edge[source="'+sourceId+'"]').target();
+    if (targets==null)
+        var n = 0;
+    else
+        var n = targets.length;
+    for(var i=0;i<n;i++){
+        if (targetId==targets[i].data("id"))
+            return false;
+    }
+    return true;
 }
