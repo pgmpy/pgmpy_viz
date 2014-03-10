@@ -59,17 +59,44 @@ $('#postModel').click(function(event) {
 $("#cy").click(function(event) {
     if (currentState == 11) {
         pos = getMousePos(this, event);
-        var defName = 'node'+cy.nodes().length;
+        var defName = 'node '+ ( cy.nodes().length + 1 ) ;
         $("#nameForm").remove();
-        $("body").append("<form id='nameForm' class = 'well' style = 'height:90px ;width:200px ;position:relative ;'>");
-        $("#nameForm").append("<input id='textField' type='text' class='span3' placeholder=" + defName + ">");
-        $("#nameForm").append("<button id='textSubmit' type='submit' class='btn'>Submit</button>");
+        $("body").append("<div id='nameForm' class = 'well input-append' style = 'width:220px; position:relative ;'>");
+        $("#nameForm").append("<input id='textField' type='text' class='span2' style='width:120px;' placeholder='" + defName + "'>");
+        $("#nameForm").append("<button id='textSubmit' type='submit' class='btn'>Save</button>");
         $("#nameForm").css({left:pos.x,top:pos.y});
+        if(checkName(defName)==false){
+            $("#nameForm").append("<span id='notifSpan' class='help-inline' style='color:red;'>Default name is being used.</span>");
+            $("#textSubmit").removeClass().addClass('btn btn-warning');
+            $("#textSubmit").prop('disabled',true);
+        }
+        $("#textField").on("change keyup paste",function(){
+            $("#notifSpan").remove();
+            $("#textSubmit").prop('disabled',false);
+            if($("#textField").val()==""){
+                $("#textSubmit").removeClass().addClass('btn');
+                if(checkName(defName)==false){
+                    $("#nameForm").append("<span id='notifSpan' class='help-inline' style='color:red;'>Default name is being used.</span>");
+                    $("#textSubmit").removeClass().addClass('btn btn-warning');
+                    $("#textSubmit").prop('disabled',true);
+                }
+            }
+            else{
+                if(checkName($("#textField").val())){
+                    $("#textSubmit").removeClass().addClass('btn btn-success');
+                }
+                else{
+                    $("#nameForm").append("<span id='notifSpan' class='help-inline' style='color:red;'>Node name is being used.</span>");
+                    $("#textSubmit").removeClass().addClass('btn btn-danger');
+                    $("#textSubmit").prop('disabled',true);
+                }
+            }
+        });
         $("#textSubmit").click(function(event){
             if($("#textField").val()=="")
                 var nodeName = defName;
             else
-                var nodeName = $("#textField").val();
+                var nodeName = $("#textField").val();     
             $("#nameForm").remove();
             cy.add([
                 {group: "nodes", data: {id: 'node'+cy.nodes().length, name: nodeName},renderedPosition: pos},
@@ -114,6 +141,14 @@ function checkEdge(sourceId,targetId){
         if (targetId==targets[i].data("id"))
             return false;
     }
+    return true;
+}
+
+function checkName(val){
+    var allNodes = cy.nodes();
+    for(var i = 0;i<cy.nodes().length;i++)
+        if(val==allNodes[i].data("name"))
+            return false;
     return true;
 }
 
