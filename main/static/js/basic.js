@@ -65,12 +65,13 @@ $("#cy").click(function(event) {
         $("#nameForm").append("<input id='textField' type='text' class='span2' style='width:120px;' placeholder='" + defName + "'>");
         $("#nameForm").append("<button id='textSubmit' type='submit' class='btn'>Save</button>");
         $("#nameForm").css({left:pos.x,top:pos.y});
+        $("#textField").focus();
         if(checkName(defName)==false){
             $("#nameForm").append("<span id='notifSpan' class='help-inline' style='color:red;'>Default name is being used.</span>");
             $("#textSubmit").removeClass().addClass('btn btn-warning');
             $("#textSubmit").prop('disabled',true);
         }
-        $("#textField").on("change keyup paste",function(){
+        $("#textField").on("change keyup paste",function(event){
             $("#notifSpan").remove();
             $("#textSubmit").prop('disabled',false);
             if($("#textField").val()==""){
@@ -91,6 +92,8 @@ $("#cy").click(function(event) {
                     $("#textSubmit").prop('disabled',true);
                 }
             }
+            if(event.keyCode==13)
+                $("#textSubmit").click();
         });
         $("#textSubmit").click(function(event){
             if($("#textField").val()=="")
