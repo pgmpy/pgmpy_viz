@@ -41,9 +41,9 @@ $("#drawMode").click(function(event) {
 $("#analysisMode").click(function(event) {
     currentState = 20;
     var buttons =
-        "<button type='button' id='addNodesMode' onclick='initAddNodesMode();'> loda mera </button> \
-        <button type='button' id='addEdgesMode' onclick='initAddEdgesMode();'>  loda tera </button> \
-        <button type='button' id='postModel' onclick='postModel();'> loda apna </button>";
+        "<button type='button' id='addNodesMode' onclick='initAddNodesMode();'> button1  </button> \
+        <button type='button' id='addEdgesMode' onclick='initAddEdgesMode();'>  button2 </button> \
+        <button type='button' id='postModel' onclick='postModel();'> button3 </button>";
     $('#modeButtons').html(buttons);
 });
 
