@@ -2,6 +2,7 @@ function initAddEdgesMode() {
     if (currentState == 12) {
         currentState = 10;
         $("#addEdgesMode").text("Start Adding Edges");
+		customAlert("lele aa");
     }
     else if (currentState ==10) {
         currentState = 12;
