@@ -41,9 +41,9 @@ $("#drawMode").click(function(event) {
 $("#analysisMode").click(function(event) {
     currentState = 20;
     var buttons =
-        "<button type='button' id='addNodesMode' onclick='initAddNodesMode();'> loda mera </button> \
-        <button type='button' id='addEdgesMode' onclick='initAddEdgesMode();'>  loda tera </button> \
-        <button type='button' id='postModel' onclick='postModel();'> loda apna </button>";
+        "<button type='button' id='addNodesMode' onclick='initAddNodesMode();'> button 1 </button> \
+        <button type='button' id='addEdgesMode' onclick='initAddEdgesMode();'>  button 2 </button> \
+        <button type='button' id='postModel' onclick='postModel();'> button 3 </button>";
     $('#modeButtons').html(buttons);
 });
 
@@ -109,12 +109,14 @@ $("#cy").click(function(event) {
         });
     }
     else if (currentState == 12) {
-        if(cy.$("node:selected").data() ==null){
+        if(cy.$("node:selected").data() == null){
             cy.nodes().unselect();
+            cy.style().resetToDefault().update();
         }
         else{
             if(edgeSource == null){
                 edgeSource = cy.$("node:selected").data("id");
+                cy.$("node:selected").css("background-color", "#67F8A6");
             }
             else if (edgeSource !=null && edgeTarget == null){
                 edgeTarget = cy.$("node:selected").data("id");
@@ -122,51 +124,13 @@ $("#cy").click(function(event) {
                     cy.add([
                         {group:"edges", data : {id:'edge'+cy.edges().length, source:edgeSource, target:edgeTarget}},
                     ]);
-                    cy.style()
-                    .selector('edge').css('target-arrow-shape','triangle')
-                    .update()
-                    }
+                }
                 edgeTarget = null;
                 edgeSource = null;
+                cy.style().selector('node').resetToDefault().update();
+                cy.style().selector('edge').css('target-arrow-shape','triangle').update();
             }
         }
         return false;
     }
 });
-
-function checkEdge(sourceId,targetId){
-    var targets = cy.elements('edge[source="'+sourceId+'"]').target();
-    if (targets==null)
-        var n = 0;
-    else
-        var n = targets.length;
-    for(var i=0;i<targets.length;i++){
-        if (targetId==targets[i].data("id"))
-            return false;
-    }
-    return true;
-}
-
-function checkName(val){
-    var allNodes = cy.nodes();
-    for(var i = 0;i<cy.nodes().length;i++)
-        if(val==allNodes[i].data("name"))
-            return false;
-    return true;
-}
-
-function checkLoop(source,target){
-    if (source==target)
-        return false;
-    else{
-        var children = cy.elements('edge[source="'+target+'"]').target();
-        if (children!=null){
-            for (var i=0;i<children.length;i++){
-                if(checkLoop(source,children[i].data("id"))==false)
-                    return false;
-            }
-        }
-    }
-    return true;
-}
-
