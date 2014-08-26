@@ -14,3 +14,7 @@ body {
 #create-node-toggle {
   z-index: -2;
 }
+
+#customDialog{
+  display:none;
+}

@@ -140,7 +140,7 @@ function checkEdge(sourceId,targetId){
         var n = 0;
     else
         var n = targets.length;
-    for(var i=0;i<n;i++){
+    for(var i=0;i<targets.length;i++){
         if (targetId==targets[i].data("id"))
             return false;
     }
