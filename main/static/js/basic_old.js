@@ -1,4 +1,4 @@
-console.log("test");
+console.log("loda");
 var currentState = "None";
 
 function getMousePos(canvas, event) {
