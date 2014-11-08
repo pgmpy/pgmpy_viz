@@ -15,10 +15,14 @@ $(loadCy=function() {
         showOverlay : false,
         ready:function() {
             cy = this;
-        }
+        },selectionType: 'single',
+      boxSelectionEnabled: false
     };
     $("#cy").cytoscape(options);
+
+
 });
+
 
 function getMousePos(canvas, event) {
   var mouseX = event.pageX - canvas.offsetLeft;
@@ -111,7 +115,7 @@ $("#cy").click(function(event) {
     else if (currentState == 12) {
         if(cy.$("node:selected").data() == null){
             cy.nodes().unselect();
-            cy.style().resetToDefault().update();
+            //cy.style().resetToDefault().update();
         }
         else{
             if(edgeSource == null){
@@ -127,10 +131,13 @@ $("#cy").click(function(event) {
                 }
                 edgeTarget = null;
                 edgeSource = null;
-                cy.style().selector('node').resetToDefault().update();
+                //cy.style().selector('node').resetToDefault().update();
                 cy.style().selector('edge').css('target-arrow-shape','triangle').update();
             }
         }
         return false;
     }
+        cy.style().selector('node').css({ content: 'data(name)' });
+
+    cy.style().selector('edge').css({ content: 'data(id)' });
 });
