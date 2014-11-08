@@ -5,4 +5,4 @@ from neo4django.db import models
 class Node(models.NodeModel):
     name = models.StringProperty()
 
-    Link = models.Relationship('self',rel_type='Link')//TODO: add link labels
+    Link = models.Relationship('self',rel_type='Link')#TODO: add link labels
