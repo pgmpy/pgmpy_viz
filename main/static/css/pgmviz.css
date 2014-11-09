@@ -3,11 +3,9 @@ body {
 }
 
 #cy {
-  height: 95%;
+  height: 100%;
   width: 100%;
-  position: absolute;
-  left: 0;
-  top: 5%;
+
   z-index: -3;
 }
 
