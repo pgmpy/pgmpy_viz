@@ -61,6 +61,7 @@ $('#postModel').click(function(event) {
 });
 
 $("#cy").click(function(event) {
+    
     if (currentState == 11) {
         pos = getMousePos(this, event);
         var defName = 'node '+ ( cy.nodes().length + 1 ) ;
@@ -137,7 +138,28 @@ $("#cy").click(function(event) {
         }
         return false;
     }
+
         cy.style().selector('node').css({ content: 'data(name)' });
 
     cy.style().selector('edge').css({ content: 'data(id)' });
+});
+
+$('#cy').mousedown(function(event) {
+    switch (event.which) {
+        case 1:
+            console.log('Left Mouse button pressed.');
+            break;
+        case 2:
+            console.log('Middle Mouse button pressed.');
+            break;
+        case 3:
+            console.log('Right Mouse button pressed.');
+            var defName = 'node '+ ( cy.nodes().length + 1 ) ;
+            pos = getMousePos(this, event);
+            cy.add([
+                {group: "nodes", data: {id: 'node'+cy.nodes().length, name: defName},renderedPosition: pos},
+                ]); 
+            cy.nodes().unselect();
+            break;
+    }
 });
