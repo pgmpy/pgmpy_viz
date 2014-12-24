@@ -9,24 +9,25 @@
         <link rel="stylesheet" type="text/css" href="../static/css/jquery-ui.css">        
     </head>
     <body>
-        <button type="button" id="drawMode">
-            Draw Mode
+        <button id="drawMode">
+        Draw Mode
         </button>
-        <button type="button" id="analysisMode">
-            Analysis Mode
+        <button id = "analysisMode">
+        Analysis Mode
         </button>
         <div id="modeButtons"></div>
+        <div id="analysisModeButtons"></div>
         <div id="cy" style="height: 400px; width: 1100px;">
             <div id="customDialog" title="Alert">
             </div>
         </div> 
-<!--TODO: add style for whole doc -->
+<!--TO DO: add style for whole doc -->
         <script src="../static/js/lib/jquery.js"></script>
         <script src="../static/js/lib/jquery-ui.js"></script>
         <script src="../static/js/lib/cytoscape.min.js"></script>
         
         <script src="../static/js/basic.js"></script>
-        
+        <script src="../static/js/deleteElement.js"></script>
         <script src="../static/js/addNodes.js"></script>
         <script src="../static/js/addEdges.js"></script>
         <script src="../static/js/customAlert.js"></script>
