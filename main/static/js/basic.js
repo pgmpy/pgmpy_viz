@@ -1,14 +1,20 @@
 /*
 drawMode = 10,
-addNOdes = 11,
+addNodes = 11,
 addEdges = 12,
 postModel = 13,
 analysisMode = 20,
+hideDrawMode = 15,
+show analysisModeState = 1,
+hide analysisModeState = 2,
+deleteNode_start = 3 
+deleteNode_stop = 4
 */
+var deleteNode = 3;
 var currentState = null;
 var edgeSource = null;
 var edgeTarget = null;
-
+var analysisModeState = null;
 // Initialize cytoscape.js
 $(loadCy=function() {
     options ={
@@ -28,23 +34,78 @@ function getMousePos(canvas, event) {
     y: mouseY
   };
 }
-
-$("#drawMode").click(function(event) {
-    currentState = 10;
-    var buttons = 
+var buttons1 = 
         "<button type='button' id='addNodesMode' onclick='initAddNodesMode();'> Start Adding Nodes </button> \
         <button type='button' id='addEdgesMode' onclick='initAddEdgesMode();'> Start Adding Edges </button> \
-        <button type='button' id='postModel'> Post Model </button>";
-    $('#modeButtons').html (buttons);
-});
-
-$("#analysisMode").click(function(event) {
-    currentState = 20;
-    var buttons =
-        "<button type='button' id='addNodesMode' onclick='initAddNodesMode();'> button 1 </button> \
+        <button type='button' id='postModel'> Post Model </button> \
+        <button type='button' id='deleteElement' onclick='initdeleteElementMode();'>Delete Element</button>";
+var buttons2 =
+		"<button type='button' id='addNodesMode' onclick='initAddNodesMode();'> button 1 </button> \
         <button type='button' id='addEdgesMode' onclick='initAddEdgesMode();'>  button 2 </button> \
         <button type='button' id='postModel' onclick='postModel();'> button 3 </button>";
-    $('#modeButtons').html(buttons);
+
+$("#drawMode").click(function(event) {
+	if(currentState== null && analysisModeState!=1)
+	{
+    currentState = 10;
+    $('#modeButtons').html(buttons1);
+}
+else if(currentState== null && analysisModeState==1)
+	{
+    currentState = 10;
+    analysisModeState = 2;
+    $('#analysisModeButtons').hide();
+    $('#modeButtons').html(buttons1);
+}
+else if(currentState == 10)
+{
+	currentState = 15;
+	$('#modeButtons').hide();
+}
+else if(currentState == 15 && analysisModeState!=1)
+{
+	currentState = 10;
+	$('#modeButtons').show();
+}
+else if(currentState == 15 && analysisModeState == 1)
+{
+	analysisModeState = 2;
+	currentState = 10;
+	$('#analysisModeButtons').hide();
+	$('#modeButtons').show();
+}	
+});
+$("#analysisMode").click(function(event) {
+	if(analysisModeState == null && currentState!=10)
+	{
+    analysisModeState = 1;
+    $('#analysisModeButtons').html(buttons2);
+}
+else if(analysisModeState == null && currentState == 10)
+{
+	analysisModeState = 1;
+	$('#modeButtons').hide();
+	currentState = 15;
+    $('#analysisModeButtons').html(buttons2);
+}	
+else if(analysisModeState == 1)
+{
+	analysisModeState = 2;
+	$('#analysisModeButtons').hide();
+}
+else if(analysisModeState == 2 && currentState == 10)
+{
+	analysisModeState = 1;
+	currentState = 15;
+	$('#modeButtons').hide();
+	$('#analysisModeButtons').show();
+}
+else if(analysisModeState == 2 && currentState!=10)
+{
+	analysisModeState = 1;
+	$('#modeButtons').hide();
+	$('#analysisModeButtons').show();
+}
 });
 
 $('#postModel').click(function(event) {
@@ -130,7 +191,7 @@ $("#cy").click(function(event) {
                 cy.style().selector('node').resetToDefault().update();
                 cy.style().selector('edge').css('target-arrow-shape','triangle').update();
             }
-        }
+        }	
         return false;
     }
 });
